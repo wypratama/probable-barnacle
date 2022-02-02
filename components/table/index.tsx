@@ -2,57 +2,26 @@ import type { NextPage } from 'next';
 import { Table, Tag, Space, Button, Input } from 'antd';
 import type { ItemsWithKey } from '../../utils/types';
 import tableHeader from './table-header';
+import columns from './table-column';
+import useStore from '../../utils/store';
 
 type Props = {
-  data: Array<ItemsWithKey> | null;
+  setToggle: (val: boolean) => void;
 };
 
-const ComponentTable: NextPage<Props> = ({ data }) => {
-  const onSearch = () => {},
-    header = tableHeader(onSearch);
-  const columns = [
-    {
-      title: 'SKU',
-      dataIndex: 'sku',
-      key: 'sku',
-    },
-    {
-      title: 'Product Name',
-      dataIndex: 'product_name',
-      key: 'product_name',
-    },
-    {
-      title: 'Quantity',
-      dataIndex: 'qty',
-      key: 'qty',
-    },
-    {
-      title: 'Price',
-      dataIndex: 'price',
-      key: 'price',
-    },
-    {
-      title: 'Unit',
-      dataIndex: 'unit',
-      key: 'unit',
-    },
-    {
-      title: 'Image',
-      dataIndex: 'image',
-      key: 'image',
-    },
-    {
-      title: 'Status',
-      dataIndex: 'status',
-      key: 'status',
-    },
-  ];
+const ComponentTable: NextPage<Props> = ({ setToggle }) => {
+  const data = useStore((state) => state.data),
+    dataLoading = useStore((state) => state.dataLoading),
+    onSearch = () => {},
+    header = tableHeader(onSearch, setToggle);
+  if (!data) return <span>Loading</span>;
   return (
     <Table
-      columns={columns}
+      columns={columns()}
       dataSource={data as Array<ItemsWithKey>}
       bordered
       tableLayout='fixed'
+      loading={dataLoading}
       title={header}
     />
   );

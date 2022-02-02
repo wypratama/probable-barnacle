@@ -12,7 +12,10 @@ export default async function handler(
     const response = await fetch(serverRuntimeConfig.apiUrl + '/items'),
       parsedResponse = await response.json(),
       withMappedKey = await Promise.all(
-        parsedResponse.map((item: Items, i: number) => ({ ...item, key: i }))
+        parsedResponse.map((item: Items, i: number) => ({
+          ...item,
+          key: item.id,
+        }))
       );
     res.status(200).json(withMappedKey);
   } catch (error) {
