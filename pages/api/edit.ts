@@ -8,7 +8,7 @@ export default async function handler(
 ) {
   const { serverRuntimeConfig } = getConfig();
   try {
-    const response = await fetch(serverRuntimeConfig.apiUrl + '/item/add', {
+    const response = await fetch(serverRuntimeConfig.apiUrl + '/item/update', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

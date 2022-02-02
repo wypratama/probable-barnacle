@@ -13,6 +13,7 @@ import {
 import { Items } from '../utils/types';
 import { useEffect, useState } from 'react';
 import useSku from '../utils/useSku';
+import { useRouter } from 'next/router';
 
 type Props = {
   toggle: boolean;
@@ -30,7 +31,7 @@ const DataModal: NextPage<Props> = ({
   cbForm,
   loading,
 }) => {
-  const { Option } = Select,
+  const router = useRouter(),
     sku = useSku(),
     [form] = Form.useForm(),
     options = [
@@ -67,9 +68,14 @@ const DataModal: NextPage<Props> = ({
       });
     }
   }, [data]);
+
   return (
     <Modal
-      title='Add Data'
+      title={
+        router.pathname.startsWith('/add')
+          ? 'Add Data'
+          : `Update ${data?.product_name}`
+      }
       centered
       visible={toggle}
       okText='Submit New Data'
@@ -83,7 +89,11 @@ const DataModal: NextPage<Props> = ({
           name='sku'
           rules={[{ required: true, message: 'Please input SKU' }]}
         >
-          <Input size='large' placeholder='SKU' />
+          <Input
+            size='large'
+            placeholder='SKU'
+            disabled={data ? true : false}
+          />
         </Form.Item>
         <Form.Item
           label='Product'
