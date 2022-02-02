@@ -4,13 +4,12 @@ import { useRouter } from 'next/router';
 import styles from '../../styles/Table.module.scss';
 
 export default function tableHeader(
-  searchFunction: () => void,
-  setToggle: (val: boolean) => void
+  searchFunction: (val: string) => void,
+  changeFunction: (e: any) => void
 ) {
   return function useHeader() {
     const router = useRouter();
     const onAddClick = () => {
-      // setToggle(true);
       router.push('/add');
     };
     return (
@@ -21,8 +20,10 @@ export default function tableHeader(
         <Input.Search
           placeholder='input search text'
           onSearch={searchFunction}
+          onChange={changeFunction}
           // enterButton
           style={{ width: 250 }}
+          allowClear
         />
       </div>
     );
