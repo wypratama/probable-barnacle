@@ -4,7 +4,7 @@ import type { ItemsWithKey } from '../../utils/types';
 import tableHeader from './table-header';
 import columns from './table-column';
 import useStore from '../../utils/store';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 type Props = {
   setToggle: (val: boolean) => void;
@@ -15,7 +15,13 @@ const ComponentTable: NextPage<Props> = () => {
     dataLoading = useStore((state) => state.dataLoading),
     [filteredData, setFilteredData] = useState<ItemsWithKey[] | []>([]),
     [searchQuery, setSearchQuery] = useState(''),
-    onSearch = () => {},
+    [tableProps, setTableProps] = useState<any>(null),
+    onSearch = () => {};
+  let media: any = null;
+  const checkWindowSize = (me: any) => {
+      console.log('aa', me.matches);
+      me.matches ? setTableProps({ x: 'max-content' }) : setTableProps(null);
+    },
     changeFunction = (e: any) => {
       setSearchQuery(e.target.value);
       const filter = data!.filter((item) => {
@@ -31,6 +37,16 @@ const ComponentTable: NextPage<Props> = () => {
       setFilteredData(filter);
     },
     header = tableHeader(onSearch, changeFunction);
+  console.log(tableProps);
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      media = window?.matchMedia('(max-width: 540px)');
+      checkWindowSize(media);
+      media.addEventListener('change', () => {
+        checkWindowSize(media);
+      });
+    }
+  }, []);
   if (!data) return <span>Loading</span>;
   return (
     <Table
@@ -40,7 +56,7 @@ const ComponentTable: NextPage<Props> = () => {
       tableLayout='fixed'
       loading={dataLoading}
       title={header}
-      // scroll={{ x: '100%' }}
+      scroll={tableProps}
     />
   );
 };
