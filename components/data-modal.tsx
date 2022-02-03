@@ -78,7 +78,9 @@ const DataModal: NextPage<Props> = ({
       }
       centered
       visible={toggle}
-      okText='Submit New Data'
+      okText={
+        router.pathname.startsWith('/add') ? 'Submit New Data' : 'Update Data'
+      }
       onOk={submitFuntion}
       onCancel={() => setToggle()}
       confirmLoading={loading}

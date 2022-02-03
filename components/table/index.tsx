@@ -19,7 +19,6 @@ const ComponentTable: NextPage<Props> = () => {
     onSearch = () => {};
   let media: any = null;
   const checkWindowSize = (me: any) => {
-      console.log('aa', me.matches);
       me.matches ? setTableProps({ x: 'max-content' }) : setTableProps(null);
     },
     changeFunction = (e: any) => {
@@ -37,7 +36,6 @@ const ComponentTable: NextPage<Props> = () => {
       setFilteredData(filter);
     },
     header = tableHeader(onSearch, changeFunction);
-  console.log(tableProps);
   useEffect(() => {
     if (typeof window !== 'undefined') {
       media = window?.matchMedia('(max-width: 540px)');
