@@ -102,14 +102,6 @@ const DataModal: NextPage<Props> = ({
         >
           <Input size='large' placeholder='Product Name' />
         </Form.Item>
-        {/* <div
-          style={{
-            width: '100%',
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-          }}
-        > */}
         <Form.Item
           label='Price'
           name='price'
@@ -132,19 +124,15 @@ const DataModal: NextPage<Props> = ({
           <InputNumber
             size='large'
             placeholder='Quantity'
-            // addonAfter={selectAfter}
             style={{ width: '100%' }}
           />
         </Form.Item>
-        {/* </div> */}
         <Form.Item
           label='Unit'
           name='unit'
           rules={[{ required: true, message: 'Please input Unit' }]}
         >
-          {/* <Input size='large' placeholder='Unit' /> */}
           <AutoComplete
-            // style={{ width: 200 }}
             size='large'
             placeholder='Unit'
             options={options}

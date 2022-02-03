@@ -1,5 +1,5 @@
 import type { NextPage } from 'next';
-import { Table, Tag, Space, Button, Input } from 'antd';
+import { Table } from 'antd';
 import type { ItemsWithKey } from '../../utils/types';
 import tableHeader from './table-header';
 import columns from './table-column';
@@ -10,15 +10,13 @@ type Props = {
   setToggle: (val: boolean) => void;
 };
 
-const ComponentTable: NextPage<Props> = ({ setToggle }) => {
+const ComponentTable: NextPage<Props> = () => {
   const data = useStore((state) => state.data),
     dataLoading = useStore((state) => state.dataLoading),
-    [filteredData, setFilteredData] = useState([]),
+    [filteredData, setFilteredData] = useState<ItemsWithKey[] | []>([]),
     [searchQuery, setSearchQuery] = useState(''),
-    onSearch = (val: string) => {
-      console.log(val, 'dari search');
-    },
-    changeFunction = (e) => {
+    onSearch = () => {},
+    changeFunction = (e: any) => {
       setSearchQuery(e.target.value);
       const filter = data!.filter((item) => {
         return (
@@ -33,16 +31,16 @@ const ComponentTable: NextPage<Props> = ({ setToggle }) => {
       setFilteredData(filter);
     },
     header = tableHeader(onSearch, changeFunction);
-  console.log(filteredData);
   if (!data) return <span>Loading</span>;
   return (
     <Table
-      columns={columns()}
+      columns={columns() as any}
       dataSource={searchQuery ? filteredData : (data as Array<ItemsWithKey>)}
       bordered
       tableLayout='fixed'
       loading={dataLoading}
       title={header}
+      // scroll={{ x: '100%' }}
     />
   );
 };

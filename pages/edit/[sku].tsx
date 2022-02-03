@@ -1,4 +1,3 @@
-import useSelection from 'antd/lib/table/hooks/useSelection';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
@@ -34,15 +33,12 @@ const Edit: NextPage<{ data: Items }> = ({ data }) => {
             body: JSON.stringify(input),
           }),
           parsed = await response.json();
-        console.log(parsed, 'dari edit');
         if (!response.ok) throw { ...parsed, type: 'token' };
         if (parsed.message) throw { ...parsed, type: 'duplicate' };
         message.success('Success updating data');
         fetchData();
         clodeModal();
-        console.log(input, response, 'dari submit function');
       } catch (error: any) {
-        console.log(error, 'error submit');
         if (error.type === 'token')
           Modal.confirm({
             title: 'Your login token is expired',
@@ -51,7 +47,6 @@ const Edit: NextPage<{ data: Items }> = ({ data }) => {
               router.push('/');
             },
             onOk: () => {
-              console.log('tes');
               localStorage.removeItem('token');
               setUser(null);
               router.push('/login');
@@ -85,7 +80,7 @@ const Edit: NextPage<{ data: Items }> = ({ data }) => {
   );
 };
 
-export async function getServerSideProps({ params }) {
+export async function getServerSideProps({ params }: any) {
   const { serverRuntimeConfig } = getConfig();
   const response = await fetch(serverRuntimeConfig.apiUrl + '/item/search', {
       method: 'POST',

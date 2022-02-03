@@ -35,12 +35,9 @@ const AccountModal: NextPage<Props> = ({ toggle, setToggle, source }) => {
     [form] = Form.useForm(),
     submitFunction = async () => {
       try {
-        console.log(email, password);
         const validate = await form.validateFields();
-        console.log(validate);
         if (!validate.errorFields) {
           setLoading(true);
-          console.log('berhasil');
           const response = await fetch(`/api/${source.toLowerCase()}`, {
             method: 'POST',
             headers: {
@@ -51,7 +48,6 @@ const AccountModal: NextPage<Props> = ({ toggle, setToggle, source }) => {
           const parsed = await response.json();
           if (!response.ok) throw parsed;
           localStorage.setItem('token', parsed.token);
-          // localStorage.setItem('userlog', email);
           setUser(email);
           setToggle();
           setLoading(false);

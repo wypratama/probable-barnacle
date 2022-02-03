@@ -1,10 +1,5 @@
-import {
-  DeleteOutlined,
-  DeleteTwoTone,
-  EditOutlined,
-  EditTwoTone,
-} from '@ant-design/icons';
-import { Button, message, Modal, Space } from 'antd';
+import { DeleteTwoTone, EditTwoTone } from '@ant-design/icons';
+import { Button, message, Modal, Space, Tag } from 'antd';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { ItemsWithKey } from '../../utils/types';
@@ -43,9 +38,7 @@ export default function ColumnsOfTable() {
               if (parsed.message) throw { ...parsed, type: 'failure' };
               message.success(`Success deleting ${item.product_name}`);
               fetchData();
-              console.log({ sku: item.sku }, response, 'dari submit function');
             } catch (error: any) {
-              console.log(error, 'error submit');
               if (error.type === 'token')
                 Modal.confirm({
                   title: 'Your login token is expired',
@@ -73,39 +66,44 @@ export default function ColumnsOfTable() {
       title: 'SKU',
       dataIndex: 'sku',
       key: 'sku',
+      onHeaderCell: (col: any) => {
+        col.align = 'center';
+      },
     },
     {
       title: 'Product Name',
       dataIndex: 'product_name',
       key: 'product_name',
+      onHeaderCell: (col: any) => {
+        col.align = 'center';
+      },
     },
     {
       title: 'Quantity',
       dataIndex: 'qty',
       key: 'qty',
+      align: 'right',
+      onHeaderCell: (col: any) => {
+        col.align = 'center';
+      },
+    },
+    {
+      title: 'Unit',
+      dataIndex: 'unit',
+      key: 'unit',
+      onHeaderCell: (col: any) => {
+        col.align = 'center';
+      },
     },
     {
       title: 'Price',
       dataIndex: 'price',
       key: 'price',
+      align: 'right',
+      onHeaderCell: (col: any) => {
+        col.align = 'center';
+      },
       render: (_: any, item: ItemsWithKey) => {
-        // return (
-        //   <span
-        //     style={{
-        //       inset: 0,
-        //       position: 'absolute',
-        //       display: 'flex',
-        //       alignItems: 'center',
-        //       justifyContent: 'flex-end',
-        //       padding: '0 4px',
-        //     }}
-        //   >
-        //     {new Intl.NumberFormat('id-ID', {
-        //       style: 'currency',
-        //       currency: 'IDR',
-        //     }).format(+item.price)}
-        //   </span>
-        // );
         return new Intl.NumberFormat('id-ID', {
           style: 'currency',
           currency: 'IDR',
@@ -113,29 +111,37 @@ export default function ColumnsOfTable() {
       },
     },
     {
-      title: 'Unit',
-      dataIndex: 'unit',
-      key: 'unit',
-    },
-    {
       title: 'Image',
       dataIndex: 'image',
       key: 'image',
+      onHeaderCell: (col: any) => {
+        col.align = 'center';
+      },
+      render: (item: any) => (item ? item : 'unavailable'),
     },
     {
       title: 'Status',
       dataIndex: 'status',
       key: 'status',
+      align: 'center',
+      render: (status: number) =>
+        status ? (
+          <Tag color={'green'} key={status}>
+            active
+          </Tag>
+        ) : (
+          <Tag color={'red'} key={status}>
+            inactive
+          </Tag>
+        ),
     },
     {
-      title: '',
+      title: 'Action',
       dataIndex: 'action',
+      align: 'center',
       render: (_: any, item: ItemsWithKey) => {
-        // console.log(item, 'dari column');
         return (
-          <Space
-            style={{ position: 'absolute', inset: 0, justifyContent: 'center' }}
-          >
+          <>
             <Button
               shape='circle'
               icon={
@@ -160,11 +166,9 @@ export default function ColumnsOfTable() {
               }
               onClick={() => confirmDelete(item)}
             ></Button>
-          </Space>
+          </>
         );
       },
     },
   ];
 }
-
-// export default tableColumn;

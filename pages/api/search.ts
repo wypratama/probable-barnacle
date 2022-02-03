@@ -8,7 +8,6 @@ export default async function handler(
 ) {
   const { serverRuntimeConfig } = getConfig();
   try {
-    const { sku } = req.body;
     const response = await fetch(serverRuntimeConfig.apiUrl + '/item/search', {
         headers: {
           'Content-Type': 'application/json',
@@ -19,7 +18,6 @@ export default async function handler(
     if (!response.ok) throw { error: response };
     res.status(200).json(parsedResponse);
   } catch (error) {
-    console.log(error);
     res.status(500).json(error);
   }
 }

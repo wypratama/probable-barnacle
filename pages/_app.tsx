@@ -1,14 +1,11 @@
 import '../styles/globals.css';
 import 'antd/dist/antd.css';
 import type { AppProps } from 'next/app';
-import type { NextPage } from 'next';
 import Head from 'next/head';
-import Image from 'next/image';
 import { useEffect, useState } from 'react';
-import { ComponentTable, DataModal } from '../components';
+import { ComponentTable } from '../components';
 import styles from '../styles/Home.module.css';
 import { Button, PageHeader, Row, message } from 'antd';
-import { ItemsWithKey } from '../utils/types';
 import { useRouter } from 'next/router';
 import useStore from '../utils/store';
 
@@ -58,6 +55,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       </Head>
 
       <main className={styles.main}>
+        <h1 className={styles.navbar}>DATA STOK OBAT</h1>
         <PageHeader
           title='TABEL DATA OBAT'
           className={styles.content}
@@ -68,20 +66,10 @@ function MyApp({ Component, pageProps }: AppProps) {
           </Row>
         </PageHeader>
       </main>
-      {/* <DataModal toggle={dataModal} setToggle={toggleDataModal} /> */}
       <Component {...pageProps} />
 
       <footer className={styles.footer}>
-        <a
-          href='https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app'
-          target='_blank'
-          rel='noopener noreferrer'
-        >
-          Powered by{' '}
-          <span className={styles.logo}>
-            <Image src='/vercel.svg' alt='Vercel Logo' width={72} height={16} />
-          </span>
-        </a>
+        <span>Wicaksana Pratama @ 2022</span>
       </footer>
     </div>
   );

@@ -9,14 +9,21 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  /* justify-content: center; */
   align-items: center;
-  background-color: #fafafa;
+  background-color: #e7e7e7;
 }
 
 .content {
   background-color: white;
-  width: 70vw;
+  width: 85vw;
+  max-width: max-content;
+}
+
+@media only screen and (max-width: 540px) {
+  .content {
+    width: 100vw;
+  }
 }
 
 .footer {
@@ -33,4 +40,15 @@
   justify-content: center;
   align-items: center;
   flex-grow: 1;
+}
+
+.navbar {
+  background-color: #565656;
+  color: transparent;
+  text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.5);
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  background-clip: text;
+  margin: 3rem 0;
+  font-weight: 700;
 }

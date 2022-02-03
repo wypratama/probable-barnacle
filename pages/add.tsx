@@ -37,9 +37,7 @@ const Add: NextPage = () => {
         message.success('Success adding new data');
         fetchData();
         clodeModal();
-        console.log(input, response, 'dari submit function');
       } catch (error: any) {
-        console.log(error, 'error submit');
         if (error.type === 'token')
           Modal.confirm({
             title: 'Your login token is expired',
@@ -48,7 +46,6 @@ const Add: NextPage = () => {
               router.push('/');
             },
             onOk: () => {
-              console.log('tes');
               localStorage.removeItem('token');
               setUser(null);
               router.push('/login');

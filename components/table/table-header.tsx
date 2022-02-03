@@ -25,7 +25,6 @@ export default function tableHeader(
           placeholder='input search text'
           onSearch={searchFunction}
           onChange={changeFunction}
-          // enterButton
           style={{ width: 250 }}
           allowClear
         />

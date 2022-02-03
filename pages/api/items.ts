@@ -19,7 +19,6 @@ export default async function handler(
       );
     res.status(200).json(withMappedKey);
   } catch (error) {
-    console.log(error);
     res.status(500).json(error);
   }
 }

@@ -21,7 +21,6 @@ export default async function login(
     }
     res.status(200).json(parsedToken);
   } catch (error) {
-    console.log(error);
     res.status(500).json({ error: error });
   }
 }
